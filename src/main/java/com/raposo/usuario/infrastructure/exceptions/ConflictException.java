@@ -1,6 +1,4 @@
-package com.bruno.aprendendo_spring.infrastructure.exceptions;
-
-import org.springframework.cache.interceptor.CacheOperationInvoker;
+package com.raposo.usuario.infrastructure.exceptions;
 
 public class ConflictException extends RuntimeException{
 
