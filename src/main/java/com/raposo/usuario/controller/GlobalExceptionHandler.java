@@ -1,5 +1,6 @@
 package com.raposo.usuario.controller;
 
+import com.raposo.usuario.infrastructure.exceptions.IllegalArgumentException;
 import com.raposo.usuario.infrastructure.exceptions.ConflictException;
 import com.raposo.usuario.infrastructure.exceptions.ResourceNotFoundException;
 import com.raposo.usuario.infrastructure.exceptions.UnauthorizedException;
@@ -24,5 +25,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<String> handleUnauthorizedException(UnauthorizedException exception){
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
