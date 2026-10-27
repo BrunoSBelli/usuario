@@ -1,6 +1,6 @@
 package com.raposo.usuario.infrastructure.exceptions;
 
-import javax.naming.AuthenticationException;
+import org.springframework.security.core.AuthenticationException;
 
 public class UnauthorizedException extends AuthenticationException {
     public UnauthorizedException(String message) {
@@ -8,6 +8,6 @@ public class UnauthorizedException extends AuthenticationException {
     }
 
     public UnauthorizedException(String mensagem, Throwable throwable){
-        super(mensagem);
+        super(mensagem, throwable);
     }
 }
