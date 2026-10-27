@@ -6,7 +6,6 @@ import com.raposo.usuario.business.DTO.TelefoneDTO;
 import com.raposo.usuario.business.DTO.UsuarioDTO;
 import com.raposo.usuario.business.UsuarioService;
 import com.raposo.usuario.business.ViaCepService;
-import com.raposo.usuario.infrastructure.client.ViaCepClient;
 import com.raposo.usuario.infrastructure.client.ViaCepDTO;
 import com.raposo.usuario.infrastructure.security.JwtUtil;
 import com.raposo.usuario.infrastructure.security.SecurityConfig;
@@ -17,8 +16,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -44,13 +41,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody UsuarioDTO usuarioDTO){
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(), usuarioDTO.getSenha())
-        );
-
-        return "Bearer " + jwtUtil.generateToken(authentication.getName());
+    @Operation(summary = "Login de Usuario", description = "Login de Usuario")
+    @ApiResponse(responseCode = "200", description = "Usuario logado com sucesso")
+    @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO){
+        return ResponseEntity.ok(usuarioService.autenticarUsuario(usuarioDTO));
 
     }
 
